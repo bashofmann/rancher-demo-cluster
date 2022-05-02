@@ -1,0 +1,28 @@
+wordpress:
+  wordpressPassword: admin
+
+  service:
+    type: ClusterIP
+
+  ingress:
+    enabled: true
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    hostname: wordpress.kubecon.plgrnd.be
+    tls: true
+
+  persistence:
+    enabled: true
+    size: 10Gi
+    storageClass: longhorn
+
+  mariadb:
+    auth:
+      password: BMbn2l8Yl8CPMlCyD8AgK81JLjbpagt1
+      rootPassword: BMbn2l8Yl8CPMlCyD8AgK81JLjbpagt1
+
+    primary:
+      persistence:
+        enabled: true
+        size: 8Gi
+        storageClass: longhorn

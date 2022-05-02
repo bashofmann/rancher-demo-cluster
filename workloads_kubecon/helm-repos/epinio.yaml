@@ -1,0 +1,6 @@
+apiVersion: catalog.cattle.io/v1
+kind: ClusterRepo
+metadata:
+  name: epinio
+spec:
+  url: https://epinio.github.io/helm-charts

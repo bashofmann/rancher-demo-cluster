@@ -1,0 +1,6 @@
+global:
+  domain: kubecon.plgrnd.be
+  tlsIssuer: letsencrypt-production
+
+server:
+  accessControlAllowOrigin: rancher.susedemo.com
