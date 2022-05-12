@@ -1,0 +1,10 @@
+ingress:
+  enabled: true
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  paths: []
+  host: shop.ingress.susedemo.com
+  tls:
+  - secretName: wordpress-tls
+    hosts:
+      - shop.ingress.susedemo.com
