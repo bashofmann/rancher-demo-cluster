@@ -2,9 +2,9 @@
 cd "$(dirname "$0")"
 
 API_URL=https://localhost:10443
-ADMIN_PASSWORD="admin"
+ADMIN_PASSWORD="adminadmin"
 
-kubectl port-forward -n neuvector-system svc/neuvector-svc-controller-api 10443 &
+kubectl port-forward -n cattle-neuvector-system svc/neuvector-svc-controller-api 10443 &
 PID=$!
 
 # Wait until port-forwarded finished

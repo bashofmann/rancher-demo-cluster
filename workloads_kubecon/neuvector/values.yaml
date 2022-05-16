@@ -4,7 +4,17 @@ controller:
   replicas: 1
   ranchersso:
     enabled: true
-
+  secret:
+    enabled: true
+    data:
+      sysinitcfg.yaml:
+        Cluster_Name: demo
+      userinitcfg.yaml:
+        users:
+        - Fullname: admin
+          Username: admin
+          Role: admin
+          Password: adminadmin
 cve:
   scanner:
     replicas: 1

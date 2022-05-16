@@ -35,10 +35,10 @@ install:
 	helm upgrade --install --namespace bookinfo bookinfo rodeo/bookinfo --create-namespace
 	helm upgrade --install --namespace wordpress wordpress rodeo/wordpress --create-namespace -f wordpress/values.yaml
 	kubectl apply -f longhorn_monitoring/
-	helm upgrade --install neuvector --namespace neuvector-system neuvector/core --create-namespace -f neuvector/values.yaml --version 2.2.0-b2
-	kubectl -n neuvector-system rollout status deployment neuvector-controller-pod
-	kubectl -n neuvector-system rollout status deployment neuvector-manager-pod
-	kubectl -n neuvector-system rollout status deployment neuvector-scanner-pod
-	kubectl -n neuvector-system rollout status daemonset neuvector-enforcer-pod
+	helm upgrade --install neuvector-crd --namespace cattle-neuvector-system rancher-charts/neuvector-crd --create-namespace --version 100.0.0+up2.2.0
+	helm upgrade --install neuvector --namespace cattle-neuvector-system rancher-charts/neuvector --create-namespace -f neuvector/values.yaml --version 100.0.0+up2.2.0	kubectl -n cattle-neuvector-system rollout status deployment neuvector-controller-pod
+	kubectl -n cattle-neuvector-system rollout status deployment neuvector-manager-pod
+	kubectl -n cattle-neuvector-system rollout status deployment neuvector-scanner-pod
+	kubectl -n cattle-neuvector-system rollout status daemonset neuvector-enforcer-pod
 	bash neuvector/configure.sh
 	helm upgrade --install epinio -n epinio --create-namespace epinio/epinio --values epinio/values.yaml
