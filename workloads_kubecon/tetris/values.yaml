@@ -2,7 +2,11 @@ ingress:
   enabled: true
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
-  host: tetris.kubecon.plgrnd.be
+  hosts:
+    - host: tetris.kubecon.plgrnd.be
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
   tls:
   - secretName: tetris-tls
     hosts:

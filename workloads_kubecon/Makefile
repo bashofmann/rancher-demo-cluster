@@ -8,6 +8,7 @@ add-helm-repos:
 	helm repo add neuvector https://neuvector.github.io/neuvector-helm/
 
 install:
+	helm repo update
 	helm upgrade --install cert-manager jetstack/cert-manager --namespace cert-manager --version v1.7.1 --set installCRDs=true --wait --create-namespace
 	kubectl apply -f cert-manager
 	kubectl create namespace longhorn-system || true
@@ -35,10 +36,7 @@ install:
 	helm upgrade --install --namespace bookinfo bookinfo rodeo/bookinfo --create-namespace
 	helm upgrade --install --namespace wordpress wordpress rodeo/wordpress --create-namespace -f wordpress/values.yaml
 	kubectl apply -f longhorn_monitoring/
-	helm upgrade --install neuvector-crd --namespace cattle-neuvector-system rancher-charts/neuvector-crd --create-namespace --version 100.0.0+up2.2.0
-	helm upgrade --install neuvector --namespace cattle-neuvector-system rancher-charts/neuvector --create-namespace -f neuvector/values.yaml --version 100.0.0+up2.2.0	kubectl -n cattle-neuvector-system rollout status deployment neuvector-controller-pod
-	kubectl -n cattle-neuvector-system rollout status deployment neuvector-manager-pod
-	kubectl -n cattle-neuvector-system rollout status deployment neuvector-scanner-pod
-	kubectl -n cattle-neuvector-system rollout status daemonset neuvector-enforcer-pod
-	bash neuvector/configure.sh
 	helm upgrade --install epinio -n epinio --create-namespace epinio/epinio --values epinio/values.yaml
+	helm upgrade --install neuvector-crd --namespace cattle-neuvector-system rancher-charts/neuvector-crd --create-namespace --version 100.0.0+up2.2.0
+	helm upgrade --install neuvector --namespace cattle-neuvector-system rancher-charts/neuvector --create-namespace -f neuvector/values.yaml --version 100.0.0+up2.2.0 --wait
+	bash neuvector/configure.sh

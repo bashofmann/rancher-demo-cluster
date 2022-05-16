@@ -9,3 +9,5 @@
 *.tfvars
 
 kubeconfig
+
+*.lock.hcl
