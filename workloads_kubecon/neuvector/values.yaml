@@ -8,7 +8,7 @@ controller:
     enabled: true
     data:
       sysinitcfg.yaml:
-        Cluster_Name: demo
+        Cluster_Name: kubecon-demo
       userinitcfg.yaml:
         users:
         - Fullname: admin
