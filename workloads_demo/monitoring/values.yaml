@@ -11,7 +11,11 @@ rke2Etcd:
   enabled: true
 
 rke2IngressNginx:
-  enabled: false
+  enabled: true
+
+ingressNginx:
+  enabled: true
+  namespace: kube-system
 
 rke2Proxy:
   enabled: true
