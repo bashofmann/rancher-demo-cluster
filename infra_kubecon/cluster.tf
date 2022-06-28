@@ -15,7 +15,7 @@ resource "rancher2_machine_config_v2" "kubecon_demo_controlplane" {
     subnet_id      = aws_subnet.kubecon_demo_subnet.id
     vpc_id         = aws_vpc.kubecon_demo_vpc.id
     zone           = "b"
-    instance_type  = "t3a.medium"
+    instance_type  = "t3a.large"
     ssh_user       = "ec2-user"
   }
 }
@@ -77,4 +77,21 @@ locals {
 resource "local_file" "kubeconfig" {
   content  = rancher2_cluster_sync.sync.kube_config
   filename = "${path.module}/kubeconfig"
+}
+
+data "rancher2_principal" "rancher_standard" {
+  name = "RancherStandard"
+  type = "group"
+}
+
+data "rancher2_role_template" "cluster_owner" {
+  name = "Cluster Owner"
+  context = "cluster"
+}
+
+resource "rancher2_cluster_role_template_binding" "rancher_standard" {
+  name = "rancher-standard"
+  cluster_id = rancher2_cluster_v2.kubecon_demo.id
+  role_template_id = data.rancher2_role_template.cluster_owner.id
+  group_principal_id = data.rancher2_principal.rancher_standard.id
 }
