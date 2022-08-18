@@ -8,7 +8,7 @@ add-helm-repos:
 	helm repo add neuvector https://neuvector.github.io/neuvector-helm/
 
 install:
-	helm upgrade --install cert-manager jetstack/cert-manager --namespace cert-manager --version v1.7.1 --set installCRDs=true --wait --create-namespace
+	helm upgrade --install cert-manager jetstack/cert-manager --namespace cert-manager --set installCRDs=true --wait --create-namespace
 	kubectl apply -f cert-manager
 	helm upgrade --install --namespace cattle-monitoring-system rancher-monitoring-crd rancher-charts/rancher-monitoring-crd --create-namespace --wait
 	helm upgrade --install --namespace cattle-monitoring-system rancher-monitoring rancher-charts/rancher-monitoring --create-namespace -f monitoring/values.yaml

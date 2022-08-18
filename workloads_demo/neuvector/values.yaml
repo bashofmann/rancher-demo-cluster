@@ -1,7 +1,6 @@
 controller:
   apisvc:
     type: ClusterIP
-  replicas: 1
   ranchersso:
     enabled: true
   secret:
@@ -15,9 +14,6 @@ controller:
           Username: admin
           Role: admin
           Password: adminadmin
-cve:
-  scanner:
-    replicas: 1
 
 k3s:
   enabled: true

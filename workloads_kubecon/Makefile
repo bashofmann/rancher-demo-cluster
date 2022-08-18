@@ -6,6 +6,7 @@ add-helm-repos:
 	helm repo add jetstack https://charts.jetstack.io
 	helm repo add epinio https://epinio.github.io/helm-charts
 	helm repo add neuvector https://neuvector.github.io/neuvector-helm/
+	helm repo add epinio https://epinio.github.io/helm-charts
 
 install:
 	helm repo update
@@ -37,6 +38,7 @@ install:
 	helm upgrade --install --namespace wordpress wordpress rodeo/wordpress --create-namespace -f wordpress/values.yaml
 	kubectl apply -f longhorn_monitoring/
 	helm upgrade --install epinio -n epinio --create-namespace epinio/epinio --values epinio/values.yaml
+	epinio settings update
 	helm upgrade --install neuvector-crd --namespace cattle-neuvector-system rancher-charts/neuvector-crd --create-namespace --version 100.0.0+up2.2.0
 	helm upgrade --install neuvector --namespace cattle-neuvector-system rancher-charts/neuvector --create-namespace -f neuvector/values.yaml --version 100.0.0+up2.2.0 --wait
 	bash neuvector/configure.sh
